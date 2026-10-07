@@ -1,0 +1,352 @@
+<!--
+  CONCEPT PAGE TEMPLATE — not a real page, not linked from navigation.
+  To create a new concept:
+    1. Duplicate this folder to /concepts/[concept-slug]/ (e.g. /concepts/spanish-restaurant-zurich/).
+    2. Replace every [bracketed] placeholder below.
+    3. Delete whichever discipline sections don't apply to this concept —
+       each one is marked OPTIONAL BLOCK and is self-contained.
+    4. Remove the <meta name="robots"> tag and fill in the real
+       <title>, meta description and canonical/OG URLs.
+    5. Add the concept to the list in /concepts/index.html and to /sitemap.xml.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>[Concept Name] | Concept Project | Marina Huerta</title>
+  <meta name="description" content="[One-sentence summary of the fictional concept and the disciplines it covers.]" />
+  <link rel="canonical" href="https://mhbymarketing.com/concepts/[concept-slug]/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Marina Huerta" />
+  <meta property="og:title" content="[Concept Name] | Concept Project | Marina Huerta" />
+  <meta property="og:description" content="[One-sentence summary of the fictional concept and the disciplines it covers.]" />
+  <meta property="og:url" content="https://mhbymarketing.com/concepts/[concept-slug]/" />
+  <meta property="og:image" content="https://mhbymarketing.com/assets/images/og-cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" href="/css/variables.css" />
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/pages.css" />
+
+  <link rel="icon" href="/assets/icons/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="/assets/icons/favicon-192.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://mhbymarketing.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Concepts", "item": "https://mhbymarketing.com/concepts/" },
+      { "@type": "ListItem", "position": 3, "name": "[Concept Name]", "item": "https://mhbymarketing.com/concepts/[concept-slug]/" }
+    ]
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied'
+    });
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E90RZC0LZ3"></script>
+  <script>
+    gtag('js', new Date());
+    gtag('config', 'G-E90RZC0LZ3');
+  </script>
+</head>
+<body>
+  <div class="consent-banner" id="consent-banner" hidden>
+    <div class="consent-banner-inner">
+      <p>This site uses Google Analytics to understand how visitors use it. You can accept or decline.</p>
+      <div class="consent-banner-actions">
+        <button type="button" class="btn btn--ghost" id="consent-decline">Decline</button>
+        <button type="button" class="btn" id="consent-accept">Accept <span class="arrow" aria-hidden="true">→</span></button>
+      </div>
+    </div>
+  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="logo" href="/">
+      <img class="logo-mark" src="/assets/images/logo-mark.png" alt="" width="22" height="34" />
+      <span>Marina Huerta</span>
+    </a>
+
+    <nav class="nav-primary" aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="/services/">Services</a></li>
+        <li class="nav-item nav-item--dropdown nav-item--current">
+          <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="work-dropdown">
+            Work <span class="nav-caret" aria-hidden="true">▾</span>
+          </button>
+          <ul class="nav-dropdown" id="work-dropdown">
+            <li><a href="/portfolio/">Portfolio</a></li>
+            <li><a href="/concepts/" aria-current="page">Concepts</a></li>
+          </ul>
+        </li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+      <a class="nav-cta btn" href="/contact/">Let's talk <span class="arrow" aria-hidden="true">→</span></a>
+    </nav>
+
+    <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu">
+      <span class="menu-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+      Menu
+    </button>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <nav aria-label="Mobile">
+      <ul class="mobile-menu-links">
+        <li><a href="/services/">Services</a></li>
+        <li class="mobile-menu-item mobile-menu-item--dropdown mobile-menu-item--current">
+          <button class="mobile-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="work-dropdown-mobile">
+            Work <span class="nav-caret" aria-hidden="true">▾</span>
+          </button>
+          <ul class="mobile-dropdown" id="work-dropdown-mobile">
+            <li><a href="/portfolio/">Portfolio</a></li>
+            <li><a href="/concepts/" aria-current="page">Concepts</a></li>
+          </ul>
+        </li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+      <div class="mobile-menu-foot">
+        <a class="nav-cta btn" href="/contact/">Let's talk <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </nav>
+  </div>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="wrap grid-12">
+        <p class="eyebrow full-row">[Type of Business] · [Disciplines Covered, e.g. Brand Strategy · SEO · Paid Media]</p>
+        <h1>[Fictional Concept Name]</h1>
+        <p class="lead">[One-line positioning statement for the fictional brand.]</p>
+      </div>
+    </section>
+
+    <!--
+      OPTIONAL BLOCK: Hero image
+      A conceptual visual for the fictional brand (moodboard, mockup,
+      generated visual — real photography doesn't apply here). Delete
+      this whole <section> if there's no visual to show yet.
+    -->
+    <section class="section" data-reveal>
+      <div class="wrap">
+        <div class="img-frame" style="aspect-ratio: 16 / 7;">
+          <div class="img-frame-placeholder"></div>
+          <p class="img-frame-caption">[Concept Name] — conceptual visual identity</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE CHALLENGE / CONTEXT — required: sets up the fictional business, its audience and its market. -->
+    <section class="section statement" data-reveal aria-labelledby="challenge-heading">
+      <div class="wrap grid-12">
+        <p class="eyebrow full-row">The Challenge</p>
+        <h2 id="challenge-heading" class="challenge-heading-col">[The core challenge or context, as a headline.]</h2>
+        <div class="statement-copy challenge-copy-col">
+          <p>[Describe the type of business, who it's for and the market it operates in.]</p>
+          <p>[Describe the specific marketing challenge this fictional business would need to solve.]</p>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      OPTIONAL BLOCK: Brand Strategy
+      Naming, tone of voice and conceptual visual identity. Delete this
+      whole <section> if brand strategy isn't part of this concept.
+    -->
+    <section class="section" aria-labelledby="brand-heading">
+      <div class="wrap">
+        <div class="grid-12">
+          <div class="services-hub-intro">
+            <p class="eyebrow">Brand Strategy</p>
+            <h2 id="brand-heading">[How the brand would be built.]</h2>
+          </div>
+        </div>
+
+        <ol class="editorial-list" data-reveal>
+          <li class="editorial-list-item">
+            <span class="index">01</span>
+            <div class="title-wrap">
+              <h3>Naming</h3>
+              <p>[The reasoning behind the fictional brand name.]</p>
+            </div>
+          </li>
+          <li class="editorial-list-item">
+            <span class="index">02</span>
+            <div class="title-wrap">
+              <h3>Tone of Voice</h3>
+              <p>[How the brand would sound across its communication.]</p>
+            </div>
+          </li>
+          <li class="editorial-list-item">
+            <span class="index">03</span>
+            <div class="title-wrap">
+              <h3>Visual Identity</h3>
+              <p>[The conceptual direction for colour, type and imagery.]</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!--
+      OPTIONAL BLOCK: Content / Social Media Strategy
+      Delete this whole <section> if it doesn't apply to this concept.
+    -->
+    <section class="section statement" data-reveal aria-labelledby="content-heading">
+      <div class="wrap grid-12">
+        <p class="eyebrow full-row">Content &amp; Social Media</p>
+        <h2 id="content-heading" class="challenge-heading-col">[The content and social media approach.]</h2>
+        <div class="statement-copy challenge-copy-col">
+          <p>[Describe the platforms, content pillars and tone that would build awareness and community for this brand.]</p>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      OPTIONAL BLOCK: SEO Strategy
+      Delete this whole <section> if it doesn't apply to this concept.
+    -->
+    <section class="section statement" data-reveal aria-labelledby="seo-heading">
+      <div class="wrap grid-12">
+        <p class="eyebrow full-row">SEO Strategy</p>
+        <h2 id="seo-heading" class="challenge-heading-col">[The organic visibility approach.]</h2>
+        <div class="statement-copy challenge-copy-col">
+          <p>[Describe how this business would be found — keyword focus, content, local or technical SEO priorities.]</p>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      OPTIONAL BLOCK: Paid Media Strategy
+      Delete this whole <section> if it doesn't apply to this concept.
+    -->
+    <section class="section statement" data-reveal aria-labelledby="paid-heading">
+      <div class="wrap grid-12">
+        <p class="eyebrow full-row">Paid Media Strategy</p>
+        <h2 id="paid-heading" class="challenge-heading-col">[The paid acquisition approach.]</h2>
+        <div class="statement-copy challenge-copy-col">
+          <p>[Describe which paid channels would be used, for what objective, and how they'd support the rest of the strategy.]</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING / STRATEGIC TAKEAWAY — required: the line that ties every discipline together. -->
+    <section class="section philosophy" data-reveal>
+      <div class="wrap">
+        <p class="eyebrow">The Takeaway</p>
+        <h2>[The strategic idea that ties every discipline in this concept together.]</h2>
+        <p>[What this concept demonstrates about the way these disciplines work as one strategy, not separate channels.]</p>
+      </div>
+    </section>
+
+    <!--
+      OPTIONAL BLOCK: Next Concept
+      Points to the next entry once more than one concept is published.
+      Delete if this is the only concept live, or update the link.
+    -->
+    <section class="section section--tight" aria-label="Next concept">
+      <div class="wrap">
+        <p class="eyebrow">Next Concept</p>
+        <div class="editorial-list">
+          <a class="editorial-list-item" href="/concepts/">
+            <span class="index">Next</span>
+            <div class="title-wrap">
+              <h3>[Next Concept Name]</h3>
+            </div>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section section--tight final-cta">
+      <div class="wrap">
+        <h2>Have a real project in mind?</h2>
+        <p>Concepts show how I think. Let's talk about what that looks like applied to your brand.</p>
+        <a class="btn" href="/contact/">Let's talk about your project <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="logo" href="/">
+            <img class="logo-mark" src="/assets/images/logo-mark.png" alt="" width="26" height="40" />
+            <span>Marina Huerta</span>
+          </a>
+          <p>Marketing with a point of view.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="/services/">Services</a></li>
+            <li><a href="/portfolio/">Work</a></li>
+            <li><a href="/concepts/" aria-current="page">Concepts</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="/services/digital-marketing/">Marketing 360</a></li>
+            <li><a href="/services/seo/">SEO</a></li>
+            <li><a href="/services/social-media/">Social Media</a></li>
+            <li><a href="/services/branding/">Branding &amp; Content</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://www.linkedin.com/in/marina-huerta-cabo-a285b61ab/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://www.instagram.com/mhbymarketing/" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Based in Zurich · Working with brands across Switzerland and beyond.</p>
+        <p>&copy; 2026 Marina Huerta</p>
+      </div>
+    </div>
+  </footer>
+
+  <a class="floating-contact" href="/contact/">
+    Let's talk <span class="arrow" aria-hidden="true">→</span>
+  </a>
+
+  <script src="/js/consent.js"></script>
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

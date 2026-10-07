@@ -1,0 +1,760 @@
+/* -----------------------------------------------------------
+   COMPONENTS
+   Header, navigation, buttons, footer and the editorial list
+   patterns reused across services and selected work.
+----------------------------------------------------------- */
+
+/* ---------- Header ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+  padding-inline: var(--edge);
+  background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-med) var(--ease);
+}
+
+.site-header.is-scrolled {
+  border-bottom-color: var(--color-line);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.logo-mark {
+  width: 22px;
+  height: auto;
+}
+
+.logo:hover {
+  opacity: 0.6;
+}
+
+.nav-primary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.nav-links a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  position: relative;
+  padding-block: 0.25rem;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transition: right var(--dur-med) var(--ease);
+}
+
+.nav-links a:hover::after,
+.nav-links a[aria-current="page"]::after {
+  right: 0;
+}
+
+.nav-cta {
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---------- Nav dropdown ("Work" > Portfolio / Concepts) ----------
+   Desktop: shown on hover/focus-within (works with zero JS) and
+   kept in sync with a JS-toggled .is-open class so aria-expanded
+   stays correct and Escape/outside-click can close it. */
+
+.nav-item--dropdown {
+  position: relative;
+}
+
+.nav-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  position: relative;
+  padding-block: 0.25rem;
+}
+
+.nav-dropdown-trigger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transition: right var(--dur-med) var(--ease);
+}
+
+.nav-item--dropdown:hover .nav-dropdown-trigger::after,
+.nav-item--dropdown:focus-within .nav-dropdown-trigger::after,
+.nav-item--dropdown.is-open .nav-dropdown-trigger::after,
+.nav-item--current .nav-dropdown-trigger::after {
+  right: 0;
+}
+
+.nav-caret {
+  font-size: 0.6em;
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.nav-item--dropdown:hover .nav-caret,
+.nav-item--dropdown:focus-within .nav-caret,
+.nav-item--dropdown.is-open .nav-caret {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.85rem;
+  min-width: 168px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  padding-block: 0.4rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), visibility var(--dur-fast) var(--ease);
+}
+
+.nav-item--dropdown:hover .nav-dropdown,
+.nav-item--dropdown:focus-within .nav-dropdown,
+.nav-item--dropdown.is-open .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown a {
+  display: block;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-ink-70);
+}
+
+.nav-dropdown a:hover,
+.nav-dropdown a[aria-current="page"] {
+  color: var(--color-ink);
+}
+
+/* ---------- Mobile dropdown ("Work" > Portfolio / Concepts) ----------
+   No hover on touch, so this is click/tap-driven via JS toggling
+   .is-open; degrades to a visible, always-expanded list if JS
+   fails since the panel isn't hidden by default in markup. */
+
+.mobile-menu-item--dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: clamp(2.5rem, 8vw + 1rem, 4.5rem);
+  font-weight: 300;
+  line-height: 1.15;
+}
+
+.mobile-dropdown-trigger .nav-caret {
+  font-size: 0.55em;
+}
+
+.mobile-menu-item--current .mobile-dropdown-trigger {
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+}
+
+.mobile-menu-item--dropdown.is-open .mobile-dropdown-trigger .nav-caret {
+  transform: rotate(180deg);
+}
+
+.mobile-dropdown {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-left: 1.5rem;
+  transition: max-height var(--dur-med) var(--ease), opacity var(--dur-med) var(--ease), margin-top var(--dur-med) var(--ease);
+}
+
+.mobile-menu-item--dropdown.is-open .mobile-dropdown {
+  max-height: 10rem;
+  opacity: 1;
+  margin-top: 0.5rem;
+}
+
+.mobile-dropdown a {
+  font-size: clamp(1.5rem, 4vw + 0.5rem, 2.25rem);
+  font-weight: 300;
+  color: var(--color-ink-70);
+}
+
+.menu-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.menu-toggle-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 22px;
+}
+
+.menu-toggle-bars span {
+  display: block;
+  height: 1px;
+  background: var(--color-ink);
+  transition: transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-bars span:first-child {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-bars span:last-child {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+/* ---------- Mobile full-screen menu ---------- */
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-2xl) var(--edge);
+  transform: translateY(-100%);
+  transition: transform var(--dur-med) var(--ease);
+}
+
+.mobile-menu.is-open {
+  transform: translateY(0);
+}
+
+.mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.mobile-menu-links a {
+  font-size: clamp(2.5rem, 8vw + 1rem, 4.5rem);
+  font-weight: 300;
+  line-height: 1.15;
+}
+
+.mobile-menu-foot {
+  margin-top: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.mobile-menu-foot .nav-cta {
+  font-size: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .nav-primary {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+/* ---------- Buttons / links-as-CTAs ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--color-line-strong);
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn .arrow {
+  transition: transform var(--dur-fast) var(--ease);
+  display: inline-block;
+}
+
+.btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+.btn--ghost {
+  border-bottom-color: var(--color-line);
+  color: var(--color-ink-70);
+  font-weight: 500;
+}
+
+.btn--ghost:hover {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-line-strong);
+}
+
+.btn--on-dark {
+  border-bottom-color: var(--color-invert-line);
+  color: var(--color-invert-ink);
+}
+
+.btn--on-dark:hover {
+  border-bottom-color: var(--color-invert-ink);
+}
+
+/* Inline text link — same underline-reveal mechanic as the nav links,
+   for the occasional reference link inside body copy. */
+.text-link {
+  position: relative;
+  font-weight: 500;
+}
+
+.text-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transition: right var(--dur-med) var(--ease);
+}
+
+.text-link:hover::after {
+  right: 0;
+}
+
+/* ---------- Hairline list ----------
+   Plain typographic list: a label per line, hairline dividers,
+   no bullets or icons. For short lists of named areas/services
+   where a card or icon grid would feel too heavy. */
+.hairline-list {
+  border-top: 1px solid var(--color-line);
+}
+
+.hairline-list li {
+  border-bottom: 1px solid var(--color-line);
+  padding-block: 0.75rem;
+  font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.75rem);
+  font-weight: 400;
+}
+
+/* ---------- Editorial list (Services) ---------- */
+
+.editorial-list {
+  border-top: 1px solid var(--color-line);
+}
+
+.editorial-list-item {
+  border-bottom: 1px solid var(--color-line);
+  padding-block: var(--space-md);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--space-md);
+}
+
+.editorial-list-item .index {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-ink-35);
+  font-variant-numeric: tabular-nums;
+}
+
+.editorial-list-item .title-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem 1.25rem;
+  transition: transform 280ms var(--ease);
+}
+
+.editorial-list-item:hover .title-wrap {
+  transform: translateX(4px);
+}
+
+.editorial-list-item h3 {
+  font-size: clamp(1.5rem, 1.2rem + 1.6vw, 2.5rem);
+}
+
+.editorial-list-item p {
+  color: var(--color-ink-55);
+  font-size: var(--text-small);
+  margin: 0;
+}
+
+.editorial-list-item .arrow {
+  font-size: 1.25rem;
+  transition: transform 280ms var(--ease);
+  justify-self: end;
+}
+
+.editorial-list-item:hover .arrow {
+  transform: translateX(6px);
+}
+
+.editorial-list-item:hover h3 {
+  color: var(--color-ink-70);
+}
+
+@media (max-width: 640px) {
+  .editorial-list-item {
+    grid-template-columns: auto 1fr;
+  }
+
+  .editorial-list-item .arrow {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+/* ---------- Inner-page hero ----------
+   Shared by every page that isn't the homepage (Services, About,
+   Portfolio, Contact, Blog): eyebrow + H1 on the left, a shorter
+   supporting lead on the right, same asymmetric logic as the
+   homepage hero but without its extra CTA row. */
+
+.page-hero {
+  padding-top: clamp(2.5rem, 1.8rem + 3vw, 4.5rem);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.page-hero h1 {
+  grid-column: 1 / 8;
+}
+
+.page-hero .lead {
+  grid-column: 9 / 13;
+  padding-top: 0.5rem;
+}
+
+.page-hero .btn {
+  margin-top: var(--space-lg);
+}
+
+@media (max-width: 900px) {
+  .page-hero h1,
+  .page-hero .lead {
+    grid-column: 1 / -1;
+  }
+
+  .page-hero .lead {
+    margin-top: var(--space-md);
+  }
+}
+
+/* ---------- Image frame ----------
+   Reusable image-placeholder container. Ships as a bordered,
+   lightly tinted frame with corner marks and a caption describing
+   the intended shot. Replace the .img-frame-placeholder <div>
+   with a real <img src="..." alt="..."> when photography is
+   ready — object-fit: cover on the img rule below means no other
+   markup or CSS needs to change. */
+
+.img-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-line-strong);
+  background: var(--color-bg);
+}
+
+.img-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.img-frame[data-carousel] img {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease);
+}
+
+.img-frame[data-carousel] img.is-active {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .img-frame[data-carousel] img {
+    transition: none;
+  }
+}
+
+.img-frame-placeholder {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.045);
+}
+
+.img-frame-placeholder::before,
+.img-frame-placeholder::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+}
+
+.img-frame-placeholder::before {
+  top: var(--space-sm);
+  left: var(--space-sm);
+  border-top: 1px solid var(--color-ink-35);
+  border-left: 1px solid var(--color-ink-35);
+}
+
+.img-frame-placeholder::after {
+  bottom: var(--space-sm);
+  right: var(--space-sm);
+  border-bottom: 1px solid var(--color-ink-35);
+  border-right: 1px solid var(--color-ink-35);
+}
+
+.img-frame-caption {
+  position: absolute;
+  left: var(--space-sm);
+  bottom: var(--space-sm);
+  max-width: calc(100% - var(--space-lg));
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-35);
+}
+
+/* ---------- Full-bleed utility ----------
+   Breaks an element out to the viewport edge regardless of its
+   container's max-width. Used sparingly — one strong visual
+   moment, not a default. */
+.bleed-full {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.floating-contact {
+  position: fixed;
+  right: var(--space-md);
+  bottom: var(--space-md);
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line-strong);
+  padding: 0.7rem 1.15rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+
+.floating-contact .arrow {
+  display: inline-block;
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.floating-contact:hover {
+  border-color: var(--color-ink);
+}
+
+.floating-contact:hover .arrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 480px) {
+  .floating-contact {
+    right: var(--space-sm);
+    bottom: var(--space-sm);
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+.consent-banner {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 95;
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-line-strong);
+  padding: var(--space-md) var(--edge);
+}
+
+.consent-banner[hidden] {
+  display: none;
+}
+
+.consent-banner-inner {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.consent-banner p {
+  color: var(--color-ink-70);
+  font-size: var(--text-small);
+  max-width: 60ch;
+  margin: 0;
+}
+
+.consent-banner-actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.consent-banner-actions button {
+  font-family: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+body.consent-open .floating-contact {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .consent-banner-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--color-line);
+  padding-block: var(--space-xl) var(--space-lg);
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: var(--space-lg);
+  padding-bottom: var(--space-xl);
+}
+
+.footer-brand .logo {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-sm);
+}
+
+.footer-brand .logo-mark {
+  width: 28px;
+}
+
+.footer-brand p {
+  color: var(--color-ink-55);
+}
+
+.footer-col h4 {
+  font-size: var(--text-eyebrow);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-ink-55);
+  margin-bottom: var(--space-sm);
+}
+
+.footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-col a:hover {
+  color: var(--color-ink-55);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-line);
+  color: var(--color-ink-55);
+  font-size: var(--text-small);
+}
+
+@media (max-width: 800px) {
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+}
