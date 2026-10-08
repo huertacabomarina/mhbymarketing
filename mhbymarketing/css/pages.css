@@ -1531,19 +1531,49 @@
 
 /* -----------------------------------------------------------
    CONTACT PAGE (/contact/)
-   The whole page is two elements: a form and a sidebar. Field
-   styling deliberately avoids boxes — a hairline underneath
-   each input, in the same restrained language as the rest of
-   the site, is enough.
+   Two equal ways in, side by side: write (form) or book a call.
+   They stack on smaller screens. Field styling deliberately
+   avoids boxes — a hairline underneath each input, in the same
+   restrained language as the rest of the site, is enough.
 ----------------------------------------------------------- */
 
-.contact-form-col {
-  grid-column: 1 / 7;
-  margin-top: var(--space-lg);
+.contact-paths {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-xl);
+  align-items: start;
 }
 
-.contact-meta {
-  grid-column: 8 / 13;
+.contact-path h2 {
+  font-size: var(--text-h3);
+  font-weight: 500;
+}
+
+.contact-path-intro {
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  color: var(--color-ink-70);
+  font-size: var(--text-lead);
+  line-height: 1.5;
+  max-width: 40ch;
+}
+
+.contact-path-alt {
+  margin-top: var(--space-lg);
+  color: var(--color-ink-55);
+}
+
+/* The booking column is short next to the form, so it stays in
+   view while the visitor scrolls past the fields. */
+.contact-path--call {
+  position: sticky;
+  top: calc(var(--space-xl) + 1rem);
+  padding-left: var(--space-xl);
+  border-left: 1px solid var(--color-line);
+}
+
+.contact-path--call .btn {
+  font-size: 1.125rem;
 }
 
 .contact-form {
@@ -1659,13 +1689,16 @@
 }
 
 @media (max-width: 900px) {
-  .contact-form-col,
-  .contact-meta {
-    grid-column: 1 / -1;
+  .contact-paths {
+    grid-template-columns: 1fr;
   }
 
-  .contact-meta {
-    margin-top: var(--space-lg);
+  .contact-path--call {
+    position: static;
+    padding-left: 0;
+    padding-top: var(--space-xl);
+    border-left: 0;
+    border-top: 1px solid var(--color-line);
   }
 }
 
@@ -1864,5 +1897,48 @@
 
   .difference--reverse .thinking-copy {
     margin-top: var(--space-lg);
+  }
+}
+
+/* -----------------------------------------------------------
+   CASE STUDY IMAGE FRAMES (/portfolio/ case study pages)
+   Shapes that used to live as inline styles on each .img-frame,
+   moved here so they can change on small screens. Desktop
+   ratios are unchanged.
+----------------------------------------------------------- */
+
+.case-image--portrait {
+  aspect-ratio: 3 / 4;
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+.case-image--wide {
+  aspect-ratio: 16 / 9;
+}
+
+.case-image--panorama {
+  aspect-ratio: 16 / 7;
+}
+
+.case-image--banner {
+  aspect-ratio: 21 / 9;
+}
+
+.case-image--spaced {
+  margin-top: var(--space-lg);
+}
+
+/* Very wide crops collapse into thin strips on a phone; give
+   them more height so the photograph still reads. */
+@media (max-width: 700px) {
+  .case-image--panorama,
+  .seo-image--hero,
+  .branding-image--hero {
+    aspect-ratio: 3 / 2;
+  }
+
+  .case-image--banner {
+    aspect-ratio: 16 / 10;
   }
 }

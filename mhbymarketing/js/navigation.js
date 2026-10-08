@@ -1,7 +1,8 @@
 /* -----------------------------------------------------------
    NAVIGATION
-   Sticky header border-on-scroll state, and the full-screen
-   mobile menu open/close behaviour.
+   Sticky header border-on-scroll state, the full-screen
+   mobile menu open/close behaviour, and the floating
+   "Let's talk" button's visibility on small screens.
 ----------------------------------------------------------- */
 
 export function initNavigation() {
@@ -94,5 +95,41 @@ export function initNavigation() {
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") closeMenu();
     });
+  }
+}
+
+/* Floating "Let's talk": tucked away until the visitor scrolls past
+   the first screen, and again while the final CTA or footer is in
+   view (they already carry their own contact links). The class only
+   has a visual effect under 700px — see components.css — so the
+   desktop button behaves exactly as before. */
+export function initFloatingContact() {
+  const button = document.querySelector(".floating-contact");
+  if (!button) return;
+
+  const endZones = document.querySelectorAll(".final-cta, .site-footer");
+  const visibleEndZones = new Set();
+  let pastFirstScreen = false;
+
+  const update = () => {
+    button.classList.toggle("is-tucked", !pastFirstScreen || visibleEndZones.size > 0);
+  };
+
+  const onScroll = () => {
+    pastFirstScreen = window.scrollY > window.innerHeight * 0.6;
+    update();
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  if ("IntersectionObserver" in window && endZones.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visibleEndZones.add(entry.target);
+        else visibleEndZones.delete(entry.target);
+      });
+      update();
+    });
+    endZones.forEach((zone) => observer.observe(zone));
   }
 }
