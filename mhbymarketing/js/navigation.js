@@ -98,21 +98,24 @@ export function initNavigation() {
   }
 }
 
-/* Floating "Let's talk": tucked away until the visitor scrolls past
-   the first screen, and again while the final CTA or footer is in
-   view (they already carry their own contact links). The class only
-   has a visual effect under 700px — see components.css — so the
-   desktop button behaves exactly as before. */
+/* Floating "Let's talk":
+   - is-at-footer (all screen sizes): hidden while the footer is in
+     view, so it never sits on top of the legal links or copyright.
+   - is-tucked (only has an effect under 700px, see components.css):
+     also hidden on the first screen and next to the final CTA, which
+     already carries its own contact links. */
 export function initFloatingContact() {
   const button = document.querySelector(".floating-contact");
   if (!button) return;
 
+  const footer = document.querySelector(".site-footer");
   const endZones = document.querySelectorAll(".final-cta, .site-footer");
   const visibleEndZones = new Set();
   let pastFirstScreen = false;
 
   const update = () => {
     button.classList.toggle("is-tucked", !pastFirstScreen || visibleEndZones.size > 0);
+    button.classList.toggle("is-at-footer", visibleEndZones.has(footer));
   };
 
   const onScroll = () => {

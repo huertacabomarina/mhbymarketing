@@ -17,10 +17,10 @@
   <!-- [PENDIENTE: crear og-cover.jpg 1200×630 y usarlo como og:image en todas las páginas y en el JSON-LD de la home] -->
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@200;300;400;500;600&amp;family=Cormorant+Garamond:ital,wght@1,500&amp;display=swap" rel="stylesheet" />
+  <!-- Fonts (self-hosted, see css/fonts.css) -->
+  <link rel="preload" href="/fonts/barlow-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/barlow-300-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/css/fonts.css" />
 
   <!-- Styles -->
   <link rel="stylesheet" href="/css/reset.css" />
@@ -55,24 +55,35 @@
     ]
   }
   </script>
-  <!-- Google tag (gtag.js) -->
+  <!-- Google Analytics (gtag.js) — basic Consent Mode: nothing from
+       Google is loaded until the visitor accepts (see js/consent.js). -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('consent', 'default', {
       'analytics_storage': 'denied'
     });
-  </script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E90RZC0LZ3"></script>
-  <script>
-    gtag('js', new Date());
-    gtag('config', 'G-E90RZC0LZ3');
+    window.loadGoogleAnalytics = function () {
+      if (window.gaLoaded) return;
+      window.gaLoaded = true;
+      gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      gtag('js', new Date());
+      gtag('config', 'G-E90RZC0LZ3');
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-E90RZC0LZ3';
+      document.head.appendChild(s);
+    };
+    // Returning visitor who already accepted: load straight away.
+    try {
+      if (localStorage.getItem('consentChoice') === 'granted') window.loadGoogleAnalytics();
+    } catch (e) {}
   </script>
 </head>
 <body>
   <div class="consent-banner" id="consent-banner" hidden>
     <div class="consent-banner-inner">
-      <p>This site uses Google Analytics to understand how visitors use it. You can accept or decline.</p>
+      <p>This site uses Google Analytics to understand how visitors use it. You can accept or decline. <a class="text-link" href="/privacy/">Privacy policy</a></p>
       <div class="consent-banner-actions">
         <button type="button" class="btn btn--ghost" id="consent-decline">Decline</button>
         <button type="button" class="btn" id="consent-accept">Accept <span class="arrow" aria-hidden="true">→</span></button>
@@ -314,7 +325,12 @@
 
       <div class="footer-bottom">
         <p>Based in Zurich · Working with brands across Switzerland and beyond.</p>
-        <p>&copy; 2026 Marina Huerta</p>
+        <ul class="footer-legal">
+          <li><a href="/impressum/">Impressum</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><button type="button" class="footer-legal-button" data-consent-open>Cookie settings</button></li>
+        </ul>
+        <p>&copy; 2026 MH by Marketing</p>
       </div>
     </div>
   </footer>
@@ -325,5 +341,6 @@
 
   <script src="/js/consent.js"></script>
   <script type="module" src="/js/main.js"></script>
+  <script src="/js/tracking.js" defer></script>
 </body>
 </html>
