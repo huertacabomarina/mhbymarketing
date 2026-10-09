@@ -348,6 +348,16 @@ body.menu-open {
   border-bottom-color: var(--color-line-strong);
 }
 
+/* Two CTAs side by side — the primary action first, the quieter
+   ghost alternative after it. Wraps onto two lines on narrow
+   screens rather than shrinking the type. */
+.cta-pair {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-sm) var(--space-lg);
+}
+
 .btn--on-dark {
   border-bottom-color: var(--color-invert-line);
   color: var(--color-invert-ink);
@@ -355,6 +365,46 @@ body.menu-open {
 
 .btn--on-dark:hover {
   border-bottom-color: var(--color-invert-ink);
+}
+
+/* ---------- Testimonials ----------
+   Client words in the editorial serif, hairline above each one,
+   no cards, no stars, no photos. Up to three per row. */
+
+.testimonials .eyebrow {
+  display: block;
+}
+
+.testimonial-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.testimonial {
+  border-top: 1px solid var(--color-line-strong);
+  padding-top: var(--space-md);
+}
+
+.testimonial-quote p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: var(--text-lead);
+  line-height: 1.4;
+}
+
+.testimonial-author {
+  margin-top: var(--space-md);
+  font-weight: 600;
+  font-size: var(--text-small);
+}
+
+.testimonial-author span {
+  display: block;
+  font-weight: 400;
+  color: var(--color-ink-55);
 }
 
 /* Inline text link — same underline-reveal mechanic as the nav links,
@@ -604,7 +654,16 @@ body.menu-open {
   padding: 0.7rem 1.15rem;
   font-size: 0.9rem;
   font-weight: 600;
-  transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease),
+    opacity var(--dur-fast) var(--ease), visibility 0s linear 0s;
+}
+
+/* Steps aside while the footer is in view (initFloatingContact). */
+.floating-contact.is-at-footer {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease), visibility 0s linear var(--dur-fast);
 }
 
 .floating-contact .arrow {
@@ -620,12 +679,27 @@ body.menu-open {
   transform: translateX(4px);
 }
 
-@media (max-width: 480px) {
+/* Phones: a smaller button that only shows once the visitor has
+   scrolled past the first screen, and steps aside near the final
+   CTA and footer (see initFloatingContact in navigation.js), so it
+   never sits on top of hero images or the page's own CTA. */
+@media (max-width: 700px) {
   .floating-contact {
     right: var(--space-sm);
     bottom: var(--space-sm);
-    padding: 0.6rem 1rem;
-    font-size: 0.85rem;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.8rem;
+    transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease),
+      visibility 0s linear 0s;
+  }
+
+  .floating-contact.is-tucked {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease),
+      visibility 0s linear var(--dur-fast);
   }
 }
 
@@ -711,7 +785,7 @@ body.consent-open .floating-contact {
   color: var(--color-ink-55);
 }
 
-.footer-col h4 {
+.footer-col h2 {
   font-size: var(--text-eyebrow);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -739,6 +813,33 @@ body.consent-open .floating-contact {
   border-top: 1px solid var(--color-line);
   color: var(--color-ink-55);
   font-size: var(--text-small);
+}
+
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-md);
+}
+
+.footer-legal a,
+.footer-legal-button {
+  color: inherit;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+/* "Cookie settings" reopens the consent banner, so it's a <button>
+   dressed as the neighbouring links. */
+.footer-legal-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.footer-legal a:hover,
+.footer-legal-button:hover {
+  color: var(--color-ink);
 }
 
 @media (max-width: 800px) {
